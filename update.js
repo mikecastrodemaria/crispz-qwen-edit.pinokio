@@ -46,6 +46,18 @@ module.exports = {
           path: "app"
         }
       }
+    },
+    // Verify the installed diffusers really exposes the Qwen-Image pipelines, so a
+    // dependency refresh that breaks them is caught here and not at the next render.
+    {
+      method: "shell.run",
+      params: {
+        venv: "env",
+        path: "app",
+        message: [
+          "python -c \"from diffusers import QwenImagePipeline, QwenImageInpaintPipeline; print('Qwen-Image pipelines OK')\""
+        ]
+      }
     }
   ]
 }
